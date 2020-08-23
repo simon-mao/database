@@ -55,6 +55,11 @@ trait CamelCase
 
     protected function addMutatedAttributesToArray(array $attributes, array $mutatedAttributes)
     {
+        foreach ($attributes as $key => $value) {
+            $attributes[$this->keyTransform($key)] = $attributes[$key];
+            unset($attributes[$key]);
+        }
+        
         foreach ($mutatedAttributes as $key) {
             if (! array_key_exists($this->keyTransform($key), $attributes)) {
                 continue;
